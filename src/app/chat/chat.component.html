@@ -1,0 +1,43 @@
+<button class="floatingButton" (click)="openOrCloseChat()">
+  <img src="./assets/balloon.svg" alt="" />
+</button>
+
+<div *ngIf="chatIsOpen" class="chatContainer">
+  <div class="header">
+    <h3>Chat Online</h3>
+    <button (click)="openOrCloseChat()">
+      <img class="close" src="./assets/x.svg" alt="Imagem fechar chat" />
+    </button>
+  </div>
+
+  <div class="messagesContainer" id="messagesContainer">
+    <div
+      *ngFor="let message of messages"
+      [class.myMessage]="message.myMessage"
+      [class.userMessage]="!message.myMessage"
+    >
+      <p class="message">
+        {{ message.body }}
+      </p>
+      <p class="hour">{{ message.createdAt }}</p>
+    </div>
+  </div>
+
+  <form (ngSubmit)="createMessage({ myMessage: true })">
+    <div class="inputContainer">
+      <input
+        [(ngModel)]="inputMessage"
+        placeholder="Digite uma mensagem"
+        name="input"
+        id="input"
+      />
+      <button type="submit">
+        <img
+          class="send"
+          src="./assets/sendGreen.svg"
+          alt="Imagem enviar mensagem"
+        />
+      </button>
+    </div>
+  </form>
+</div>
